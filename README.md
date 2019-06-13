@@ -1,6 +1,6 @@
 # DeepLearning-Tensorflow2
 
-Testing the Deep Learning classics in Tensorflow 2 to get familiarized with the new features...
+Testing the Deep Learning classics in Tensorflow 2 to get familiarized with the 2.0.0-beta0 new features...
 
 1. Linear Regression and custom models
 2. Logistic Regressions 
