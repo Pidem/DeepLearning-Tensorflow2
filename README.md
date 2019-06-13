@@ -1,0 +1,9 @@
+# DeepLearning-Tensorflow2
+
+Testing the Deep Learning classics in Tensorflow 2 to get familiarized with the new features...
+
+1. Linear Regression and custom models
+2. Logistic Regressions 
+3. CNN with MNIST
+4. Style Transfer
+5. Using a pretrained model 
