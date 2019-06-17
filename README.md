@@ -10,4 +10,8 @@ Testing the Deep Learning classics in Tensorflow 2 to get familiarized with the 
 6. MobileNet
 7. Inception / ImageNet
 
-Source: https://wizardforcel.gitbooks.io/tensorflow-101-sjchoi86/webcrawling_naverstock.html
+Source: 
+
+https://wizardforcel.gitbooks.io/tensorflow-101-sjchoi86/webcrawling_naverstock.html
+https://github.com/rasbt/deeplearning-models
+
