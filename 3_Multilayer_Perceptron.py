@@ -13,7 +13,7 @@ x_test = x_test[..., tf.newaxis].astype('float32')
 train_ds = tf.data.Dataset.from_tensor_slices((x_train, y_train)).shuffle(10000).batch(100)
 test_ds = tf.data.Dataset.from_tensor_slices((x_test, y_test)).batch(100)
 
-# Define Multilayer Perceptron model
+# Define Multilayer Perceptron model defined with the tf.nn module
 
 class Model(tf.keras.Model):
     def __init__(self):
@@ -40,11 +40,37 @@ class Model(tf.keras.Model):
         layer_1 = tf.nn.relu(tf.add(tf.matmul(inputs, self.w1), self.b1))
         layer_2 = tf.nn.relu(tf.add(tf.matmul(layer_1, self.w2), self.b2))
         layer_3 = tf.nn.relu(tf.add(tf.matmul(layer_2, self.w3), self.b3))
-        output = tf.keras.layers.Dropout(rate=0.4)(layer_3)
+        output = tf.nn.dropout(layer_3, keep_prob=0.6)
         return tf.nn.softmax(tf.matmul(output, self.wout) + self.bout)
 
-
 model = Model()
+
+
+# Define Multilayer Perceptron model defined with the tf.keras module
+
+class Model_Keras(tf.keras.Model):
+    def __init__(self):
+        super(Model_Keras, self).__init__()
+        self.reshape = tf.keras.layers.Reshape((-1, 28*28))
+        self.dense1 = tf.keras.layers.Dense(units=512, activation='relu', use_bias=True,
+                                            kernel_initializer='glorot_normal', bias_initializer='glorot_normal')
+        self.dense2 = tf.keras.layers.Dense(units=512, activation='relu', use_bias=True,
+                                            kernel_initializer='glorot_normal', bias_initializer='glorot_normal')
+        self.dense3 = tf.keras.layers.Dense(units=256, activation='relu', use_bias=True,
+                                            kernel_initializer='glorot_normal', bias_initializer='glorot_normal')
+        self.dropout = tf.keras.layers.Dropout(rate=0.4)
+        self.dense_out = tf.keras.layers.Dense(units=10, activation='softmax', use_bias=True,
+                                               kernel_initializer='glorot_normal', bias_initializer='glorot_normal')
+    def call(self, x):
+        x = self.reshape(x)
+        x = self.dense1(x)
+        x = self.dense2(x)
+        x = self.dense3(x)
+        x = self.dropout(x)
+        return self.dense_out(x)
+
+# model = Model_Keras()
+
 
 # Verify the that the model has the right amount of trainable variables
 total_parameters = 0
