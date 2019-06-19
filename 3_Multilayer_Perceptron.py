@@ -71,45 +71,13 @@ test_accuracy = tf.keras.metrics.SparseCategoricalAccuracy(name='test_accuracy')
 @tf.function
 def train_step(images, labels):
     with tf.GradientTape() as tape:
-        predictions = model(images)class Model(tf.keras.Model):
-    def __init__(self):
-        super(Model, self).__init__()
-        n_input = 784
-        n_hidden_1 = 512  # 1st layer num features
-        n_hidden_2 = 512  # 2nd layer num features
-        n_hidden_3 = 256  # 3rd layer num features
-        n_classes = 10
+        predictions = model(images)
+        loss = loss_object(labels, predictions)
+    gradients = tape.gradient(loss, model.trainable_variables)
+    optimizer.apply_gradients(zip(gradients, model.trainable_variables))
 
-        # NETWORK PARAMETERS
-        stddev = 0.1
-        self.w1 = tf.Variable(tf.random.normal([n_input, n_hidden_1], stddev=stddev), name='w1')
-        self.w2 = tf.Variable(tf.random.normal([n_hidden_1, n_hidden_2], stddev=stddev), name='w2')
-        self.w3 = tf.Variable(tf.random.normal([n_hidden_2, n_hidden_3], stddev=stddev))
-        self.wout = tf.Variable(tf.random.normal([n_hidden_3, n_classes], stddev=stddev), name='wout')
-        self.b1 = tf.Variable(tf.random.normal([n_hidden_1]), name='b1')
-        self.b2 = tf.Variable(tf.random.normal([n_hidden_2]), name='b2')
-        self.b3 = tf.Variable(tf.random.normal([n_hidden_3]))
-        self.bout = tf.Variable(tf.random.normal([n_classes]), name='bout')
-
-    def call(self, x):
-        inputs = tf.reshape(x, (-1, 28 * 28))
-        layer_1 = tf.nn.relu(tf.add(tf.matmul(inputs, self.w1), self.b1))
-        layer_2 = tf.nn.relu(tf.add(tf.matmul(layer_1, self.w2), self.b2))
-        layer_3 = tf.nn.relu(tf.add(tf.matmul(layer_2, self.w3), self.b3))
-        output = tf.keras.layers.Dropout(rate=0.4)(layer_3)
-        return tf.nn.softmax(tf.matmul(output, self.wout) + self.bout)
-
-
-model = Model()
-
-loss_object = tf.keras.losses.SparseCategoricalCrossentropy()
-optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
-
-train_loss = tf.keras.metrics.Mean(name='train_loss')
-train_accuracy = tf.keras.metrics.SparseCategoricalAccuracy(name='train_accuracy')
-
-test_loss = tf.keras.metrics.Mean(name='test_loss')
-test_accuracy = tf.keras.metrics.SparseCategoricalAccuracy(name='test_accuracy')
+    train_loss(loss)
+    train_accuracy(labels, predictions)
 
 @tf.function
 def test_step(images, labels):
