@@ -16,9 +16,3 @@ https://wizardforcel.gitbooks.io/tensorflow-101-sjchoi86/webcrawling_naverstock.
 https://github.com/rasbt/deeplearning-models
 
 
-To visualize graph: run 
-`tensorboard --logdir=/tmp/tensorflow_logdir`
-
-`$python import_pb_to_tensorboard.py --model_dir /tmp/path_to.pb --log_dir /tmp/tensorflow_logdir `
-
-and access http://localhost:6006
