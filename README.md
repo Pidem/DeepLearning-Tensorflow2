@@ -9,6 +9,8 @@ Testing the Deep Learning classics in Tensorflow 2 to get familiarized with the 
 5. Using a pretrained model
 6. MobileNet
 7. Inception / ImageNet
+8. Tensorflow2 to ONXX
+9. ONXX and TensorRT (NVIDIA)
 
 Source: 
 
