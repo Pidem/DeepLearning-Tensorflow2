@@ -12,6 +12,10 @@ Testing the Deep Learning classics in Tensorflow 2 to get familiarized with the 
 8. Tensorflow2 to ONXX
 9. ONXX and TensorRT (NVIDIA)
 
+
+Implementation of some classic architectures in TF2
+ResNet, AlexNet, LuNet...
+
 Source: 
 
 https://wizardforcel.gitbooks.io/tensorflow-101-sjchoi86/webcrawling_naverstock.html
